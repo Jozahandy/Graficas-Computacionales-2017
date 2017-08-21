@@ -14,7 +14,8 @@ Circle::Circle(double r)
 
 Circle::Circle(double r, std::string c)
 {
-
+	_radius = r;
+	_color = c;
 }
 
 double Circle::GetRadius()
@@ -24,7 +25,7 @@ double Circle::GetRadius()
 
 std::string Circle::GetColor()
 {
-	return std::string();
+	return _color;
 }
 
 void Circle::SetRadius(double r)

@@ -53,5 +53,5 @@ std::string Employee::Print()
 {
 	std::string _name;
 	_name = _firstName + _lastName;
-	return "\n\nID: " + std::to_string(_id) + "\nName: " + _name + "\nSalary: " + std::to_string(_salary);;
+	return "\n\nID: " + std::to_string(_id) + "\nName: " + _name + "\nSalary: " + std::to_string(_salary);
 }

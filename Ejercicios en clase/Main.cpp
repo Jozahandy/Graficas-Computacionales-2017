@@ -7,9 +7,11 @@ int main() {
 
 	std::cout << "Hello World!" << std::endl;
 
-	Circle circulo(2.0, "Color: green");
+	std::cout << "\n\nColor del circulo: " << std::endl;
+	Circle circulo(2.0, "green");
 	std::cout << circulo.GetColor() << std::endl;
-
+	
+	std::cout << "\n\nArea del rectangulo: " << std::endl;
 	Rectangle rectangulo(5.0, 2.0);
 	std::cout <<rectangulo.GetArea() << std::endl;
 	

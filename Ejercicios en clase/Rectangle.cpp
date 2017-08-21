@@ -36,6 +36,8 @@ void Rectangle::SetHeigth(float h)
 float Rectangle::GetArea()
 {
 	return _width * _heigth;
+
+	
 }
 
 float Rectangle::GetPerimeter()
