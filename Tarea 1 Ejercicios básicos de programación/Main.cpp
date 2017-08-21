@@ -224,6 +224,13 @@ int main()
 	Fibonacci(9);
 
 	bool primo = EsPrimo(17);
+	if (primo) {
+		std::cout << "\n\n\nEs primo";
+	}
+	else {
+		std::cout << "\n\n\nNo es primo";
+		
+	}
 
 
 	std::cin.get();
