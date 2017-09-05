@@ -73,7 +73,7 @@ void Initialize() {
 	int contador = 0;
 
 	while (contador < 361) {
-		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+		colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 
