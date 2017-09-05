@@ -1,11 +1,12 @@
 #version 330
 
-in vec4 gl_FragCoord;
+in vec3 VertexPosition;
+in vec3 VertexColor;
 
-out vec4 FragColor;
+out vec3 InterpolatedColor;
 
-void main()
+void main ()
 {
-	FragColor = vec4(InterpolatedColor, 1.0f);
-
+	InterpolatedColor = VertexColor;
+	gl_Position = vec4(VertexPosition, 1.0f);
 }

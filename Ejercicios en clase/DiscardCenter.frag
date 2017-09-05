@@ -1,11 +1,11 @@
 #version 330
 
-in vec4 gl_FragCoord;
+in vec3 InterpolatedColor;
 
 out vec4 FragColor;
 
 void main()
 {
 	FragColor = vec4(InterpolatedColor, 1.0f);
-	
+
 }
