@@ -42,44 +42,36 @@ void Initialize() {
 
 	//Estamos trabajando en el CPU & RAM  de la computadora, aun no pasamos a la tarjeta de video.
 	std::vector<glm::vec2> positions;  //Creacion del atributo de posiciones de los vertices, lista de vec 2--> x, y, vec3--> x,y,z
-	
+	std::vector<glm::vec3> colors;
+
 	float radius = 1.0;
 	float count = 0;
-	float a = 1.0;
-	float b = 0.0;
+	
+	positions.push_back(glm::vec2(0.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0, 1.0, 1.0));
 
 
-
-	while (count<361) {
+	while (count<=360) {
 
 		float angle = glm::radians(count);
-
 		float positionX = radius * ( glm::cos(angle));
 		float positionY = radius * (glm::sin(angle));
 
-		positions.push_back(glm::vec2(0.0f, 0.0f));
-		positions.push_back(glm::vec2(a, b));
+		
 		positions.push_back(glm::vec2(positionX, positionY));
+		colors.push_back(glm::vec3(positionX,positionY, 0));
 
 		count = count + 1.0;
-		
-		a = positionX;
-		b = positionY;
+
 	}
+
 
 	//Crear una nueva lista que sea un vector
-	std::vector<glm::vec3> colors;
 	//Arreglo de colores en el cpu
-	int contador = 0;
+	
 
-	while (contador < 361) {
-		colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
-		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	
 
-		contador = contador + 1;
-
-	}
 	
 
 
@@ -177,7 +169,7 @@ void GameLoop()
 	//Activamos el manager, en este momento se activan todos los VBOs asociados automaticamente
 	glBindVertexArray(vao);
 	//Funcion de dibujado sin indices
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 1083);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 362);
 	//Terminamos de utilizar el manager
 	glBindVertexArray(0);
 
