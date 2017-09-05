@@ -121,13 +121,21 @@
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="InputFile.h" />
     <ClInclude Include="Rectangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="InputFile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Default.frag" />
+    <None Include="Default.vert" />
+    <None Include="DiscardCenter.frag" />
+    <None Include="DiscardCenter.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
