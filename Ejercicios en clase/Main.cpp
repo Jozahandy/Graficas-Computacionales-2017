@@ -34,8 +34,12 @@
 //iDENTIFICADOR DEL MANAGER AL QUE LE VAMOS A ASOCIAR TODOS LOS vboS
 GLuint vao;
 
-// Identificador del manager de los shaders (shaderProgram)
+// Identificador del manager de los shaders (shaderProgram) 
+
+
 GLuint shaderProgram;
+float vertsPerFrame = 0.0f;
+float delta = 0.01f;
 
 //en esta funcion voy a estar creando toda la memoria que el programa va a utilizar
 void Initialize() {
@@ -68,11 +72,7 @@ void Initialize() {
 
 	//Crear una nueva lista que sea un vector
 	//Arreglo de colores en el cpu
-	
 
-	
-
-	
 
 
 	//Queremos generar 1 manager
@@ -169,17 +169,39 @@ void GameLoop()
 	//Activamos el manager, en este momento se activan todos los VBOs asociados automaticamente
 	glBindVertexArray(vao);
 	//Funcion de dibujado sin indices
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 362);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, glm::clamp(vertsPerFrame, 0.0f, 362.0f));
 	//Terminamos de utilizar el manager
 	glBindVertexArray(0);
 
 	//Desactivamos el manager
 	glUseProgram(0);
 
+
+	vertsPerFrame += delta;
+	if (vertsPerFrame < 0.0f || vertsPerFrame >= 370.0f) 
+		delta *= -1.0f;
+
 	//Cuando terminamos de renderear, cambiamos los buffers.
 	
 	glutSwapBuffers();
 }
+
+
+void Idle() {
+	//Cuando open gl entra en modo de reposos para guardar bateria, ejemplo le decimos qye vualva a dibujar 
+	glutPostRedisplay();
+}
+
+
+void ReshapeWindow(int widtht, int height) {
+	glViewport(0, 0, widtht, height);
+	glUseProgram(shaderProgram);
+	GLint uniformLocation =
+		glGetUniformLocation(shaderProgram, "Resolution");
+	glUniform2f(uniformLocation, widtht, height);
+	glUseProgram(0);
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -209,6 +231,8 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Hello World GL");
 	// Asociamos una función de render. Esta función se mandará a llamar para dibujar un frame.
 	glutDisplayFunc(GameLoop);
+	glutReshapeFunc(ReshapeWindow);
+	glutIdleFunc(Idle);
 
 	// Inicializar GLEW. Esta librería se encarga de obtener el API de OpenGL de
 	// nuestra tarjeta de video. SHAME ON YOU MICROSOFT.
