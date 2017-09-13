@@ -38,36 +38,42 @@ GLuint vao;
 
 
 GLuint shaderProgram;
-float vertsPerFrame = 0.0f;
-float delta = 0.01f;
+
 
 //en esta funcion voy a estar creando toda la memoria que el programa va a utilizar
 void Initialize() {
 
 	//Estamos trabajando en el CPU & RAM  de la computadora, aun no pasamos a la tarjeta de video.
 	std::vector<glm::vec2> positions;  //Creacion del atributo de posiciones de los vertices, lista de vec 2--> x, y, vec3--> x,y,z
+
+	positions.push_back(glm::vec2(0.0f, 1.0f));
+	positions.push_back(glm::vec2(0.0f, 0.5f));
+	positions.push_back(glm::vec2(0.95f,0.3f));
+	positions.push_back(glm::vec2(0.45f, 0.18f));
+	positions.push_back(glm::vec2(0.6f, -0.8f));
+	positions.push_back(glm::vec2(0.3f, -0.4f));
+	positions.push_back(glm::vec2(-0.6f, -0.8f));
+	positions.push_back(glm::vec2(-0.3f, -0.4f));
+	positions.push_back(glm::vec2(-0.95f, 0.3f));
+	positions.push_back(glm::vec2(-0.45f, 0.18f));
+	positions.push_back(glm::vec2(0.0f, 1.0f));
+	positions.push_back(glm::vec2(0.0f, 0.5f));
+
+
 	std::vector<glm::vec3> colors;
-
-	float radius = 1.0;
-	float count = 0;
 	
-	positions.push_back(glm::vec2(0.0f, 0.0f));
-	colors.push_back(glm::vec3(1.0, 1.0, 1.0));
-
-
-	while (count<=360) {
-
-		float angle = glm::radians(count);
-		float positionX = radius * ( glm::cos(angle));
-		float positionY = radius * (glm::sin(angle));
-
-		
-		positions.push_back(glm::vec2(positionX, positionY));
-		colors.push_back(glm::vec3(positionX,positionY, 0));
-
-		count = count + 1.0;
-
-	}
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
 	//Crear una nueva lista que sea un vector
@@ -113,7 +119,7 @@ void Initialize() {
 
 	//VertexShader
 	//Leemos el archivo Default.vert donde esta el código del vertex shader
-	ifile.Read("DiscardCenter.vert");
+	ifile.Read("Default.vert");
 
 	//Obtenemos el codigo fuente y lo guardamos en un string
 	std::string vertexSource = ifile.GetContents();
@@ -133,7 +139,7 @@ void Initialize() {
 	glCompileShader(vertexShaderHandle);
 
 
-	ifile.Read("DiscardCenter.frag");
+	ifile.Read("Default.frag");
 	std::string fragmentSource = ifile.GetContents();
 	GLuint fragmentShaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
 	const GLchar * fragmentSource_c = (const GLchar *)fragmentSource.c_str();
@@ -169,17 +175,12 @@ void GameLoop()
 	//Activamos el manager, en este momento se activan todos los VBOs asociados automaticamente
 	glBindVertexArray(vao);
 	//Funcion de dibujado sin indices
-	glDrawArrays(GL_TRIANGLE_FAN, 0, glm::clamp(vertsPerFrame, 0.0f, 362.0f));
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 12);
 	//Terminamos de utilizar el manager
 	glBindVertexArray(0);
 
 	//Desactivamos el manager
 	glUseProgram(0);
-
-
-	vertsPerFrame += delta;
-	if (vertsPerFrame < 0.0f || vertsPerFrame >= 370.0f) 
-		delta *= -1.0f;
 
 	//Cuando terminamos de renderear, cambiamos los buffers.
 	
@@ -195,11 +196,6 @@ void Idle() {
 
 void ReshapeWindow(int widtht, int height) {
 	glViewport(0, 0, widtht, height);
-	glUseProgram(shaderProgram);
-	GLint uniformLocation =
-		glGetUniformLocation(shaderProgram, "Resolution");
-	glUniform2f(uniformLocation, widtht, height);
-	glUseProgram(0);
 }
 
 
