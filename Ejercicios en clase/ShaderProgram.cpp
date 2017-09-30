@@ -51,7 +51,7 @@ void ShaderProgram::Deactivate()
 
 void ShaderProgram::SetAttribute(GLuint locationIndex, std::string name)
 {
-	glBindAttribLocation(_programHandle, locationIndex, name);
+	glBindAttribLocation(_programHandle, locationIndex, name); 
 }
 void ShaderProgram::SetUniformf(std::string name, float value)
 {

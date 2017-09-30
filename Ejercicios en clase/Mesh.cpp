@@ -35,11 +35,35 @@ void Mesh::Draw(GLenum primitive)
 
 void Mesh::SetPositionAttribute(std::vector<glm::vec2> positions, GLenum usage, GLuint locationIndex)
 {
+	positions.push_back(glm::vec2(0.0f, 1.0f));
+	positions.push_back(glm::vec2(0.0f, 0.5f));
+	positions.push_back(glm::vec2(0.95f, 0.3f));
+	positions.push_back(glm::vec2(0.45f, 0.18f));
+	positions.push_back(glm::vec2(0.6f, -0.8f));
+	positions.push_back(glm::vec2(0.3f, -0.4f));
+	positions.push_back(glm::vec2(-0.6f, -0.8f));
+	positions.push_back(glm::vec2(-0.3f, -0.4f));
+	positions.push_back(glm::vec2(-0.95f, 0.3f));
+	positions.push_back(glm::vec2(-0.45f, 0.18f));
+	positions.push_back(glm::vec2(0.0f, 1.0f));
+	positions.push_back(glm::vec2(0.0f, 0.5f));
 
 }
 
 void Mesh::SetColorAttribute(std::vector<glm::vec3> colors, GLenum usage, GLuint locationIndex)
 {
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 void Mesh::SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components)
