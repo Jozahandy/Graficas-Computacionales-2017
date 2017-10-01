@@ -55,24 +55,27 @@ void ShaderProgram::SetAttribute(GLuint locationIndex, std::string name)
 }
 void ShaderProgram::SetUniformf(std::string name, float value)
 {
-
+	glBindAttribLocation(_programHandle, 0, "VertexPosition");
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y)
 {
+	glBindAttribLocation(_programHandle, 0, "VertexPosition");
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y, float z)
 {
+	glBindAttribLocation(_programHandle, 0, "VertexPosition");
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y, float z, float w)
 {
+	glBindAttribLocation(_programHandle, 0, "VertexPosition");
 }
 
 void ShaderProgram::DeleteAndDetachShaders()
 {
-
+	glDetachShader(_attachedShaders.push_back, 0);
 }
 
 void ShaderProgram::DeleteProgram()
