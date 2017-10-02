@@ -1,3 +1,9 @@
+/*********************************************************
+Materia:Gráficas computacionales
+Fecha: 02/Octubre/2017
+Autor: Valeria Jozahandy Sánchez álvarez
+Matricula: A01375042
+*********************************************************/
 #include "Shader.h"
 #include "InputFile.h"
 
