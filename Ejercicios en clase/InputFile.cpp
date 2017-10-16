@@ -3,27 +3,32 @@
 #include <sstream>
 #include <fstream>
 
+#include "InputFile.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
 using namespace std;
 
-bool InputFile::Read(std::string fileName)
+bool InputFile::Read(std::string filename)
 {
-	if (fileName.empty())
-	{
-		std::cout << "No filename provided" << std::endl;
+	char output[100];
+	std::ifstream _archivo;
+	std::string a, b;
+	_archivo.open(filename);
+	if (_archivo.fail()) {
 		return false;
 	}
-
-	std::fstream inputFile(fileName, std::fstream::in);
-
-	if (!inputFile.is_open())
+	else
 	{
-		std::cout << "Could not open file" << fileName << std::endl;
-		return false;
+		while (std::getline(_archivo, a)) {
+			b += a;
+			b += "\n";
+		}
+		_archivo.close();
+		_contents = b;
 	}
 
-	std::stringstream ss;
-	ss << inputFile.rdbuf();
-	_contents = ss.str();
 	return true;
 }
 

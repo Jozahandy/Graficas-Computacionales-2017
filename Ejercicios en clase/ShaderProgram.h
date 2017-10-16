@@ -24,6 +24,7 @@ public:
 	void SetUniformf(std::string name, float x, float y);
 	void SetUniformf(std::string name, float x, float y, float z);
 	void SetUniformf(std::string name, float x, float y, float z, float w);
+	void SetUniformMatrix(std::string name, glm::mat4 matrix);
 
 private:
 	void DeleteAndDetachShaders();
@@ -32,4 +33,3 @@ private:
 	GLuint _programHandle = 0;
 	std::vector<std::unique_ptr<Shader>> _attachedShaders;
 };
-

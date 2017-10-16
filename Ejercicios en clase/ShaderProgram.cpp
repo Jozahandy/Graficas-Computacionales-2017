@@ -7,12 +7,14 @@ Matricula: A01375042
 
 #include "ShaderProgram.h"
 #include "Shader.h"
+#include <glm/gtc/type_ptr.hpp>
 #include "memory"
+#include <vector>
 
 ShaderProgram::ShaderProgram()
 {
 	_programHandle = 0;
-	_attachedShaders;
+
 }
 
 ShaderProgram::~ShaderProgram()
@@ -34,72 +36,80 @@ void ShaderProgram::AttachShader(std::string path, GLenum type)
 
 void ShaderProgram::LinkProgram()
 {
-	glAttachShader(_programHandle, _attachedShaders.push_back);
+	for (size_t i = 0; i < _attachedShaders.size(); i++)
+		glAttachShader(_programHandle, _attachedShaders[i]->GetHandle());
+
 	glLinkProgram(_programHandle);
+
 	DeleteAndDetachShaders();
 }
 
 void ShaderProgram::Activate()
 {
-	glBindVertexArray(_programHandle);
+	glUseProgram(_programHandle);
 }
 
 void ShaderProgram::Deactivate()
 {
-	glBindVertexArray(0);
-}
 
+	glUseProgram(0);
+
+}
 
 void ShaderProgram::SetAttribute(GLuint locationIndex, std::string name)
 {
-	const GLchar*Name = (const GLchar*)name.c_str;
-	glBindAttribLocation(_programHandle, locationIndex, Name);
+	glBindAttribLocation(_programHandle, locationIndex, name.c_str());
 }
 
 void ShaderProgram::SetUniformf(std::string name, float value)
 {
-	glUseProgram(_programHandle);
-	const GLchar*Name = (const GLchar*)name.c_str;
-	GLint uniformLocation = glGetUniformLocation(_programHandle, Name);
+
+
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
 	glUniform1f(uniformLocation, value);
-	glUseProgram(0);
+
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y)
 {
-	glUseProgram(_programHandle);
-	const GLchar*Name = (const GLchar*)name.c_str;
-	GLint uniformLocation = glGetUniformLocation(_programHandle, Name);
+
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
 	glUniform2f(uniformLocation, x, y);
-	glUseProgram(0);
+
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y, float z)
 {
-	glUseProgram(_programHandle);
-	const GLchar*Name = (const GLchar*)name.c_str;
-	GLint uniformLocation = glGetUniformLocation(_programHandle, Name);
+
+
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
 	glUniform3f(uniformLocation, x, y, z);
-	glUseProgram(0);
+
 }
 
 void ShaderProgram::SetUniformf(std::string name, float x, float y, float z, float w)
 {
-	glUseProgram(_programHandle);
-	const GLchar*Name = (const GLchar*)name.c_str;
-	GLint uniformLocation = glGetUniformLocation(_programHandle, Name);
+
+
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
 	glUniform4f(uniformLocation, x, y, z, w);
-	glUseProgram(0);
+
+}
+
+void ShaderProgram::SetUniformMatrix(std::string name, glm::mat4 matrix)
+{
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
+	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void ShaderProgram::DeleteAndDetachShaders()
 {
-	for (int x = 0; x < _attachedShaders.size(); x++) {
-	glDetachShader(_programHandle, _attachedShaders.push_back);
-	_attachedShaders.pop_back();
-}
-	
-	glDeleteShader(_attachedShaders.push_back);
+
+	for (size_t i = 0; i < _attachedShaders.size(); i++)
+		glDetachShader(_programHandle, _attachedShaders[i]->GetHandle());
+
+	_attachedShaders.clear();
+
 }
 
 void ShaderProgram::DeleteProgram()

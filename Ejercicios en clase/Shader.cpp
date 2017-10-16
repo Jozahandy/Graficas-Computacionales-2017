@@ -7,7 +7,10 @@ Matricula: A01375042
 #include "Shader.h"
 #include "InputFile.h"
 
-InputFile ifile;
+#include "Shader.h"
+#include "InputFile.h"
+#include <vector>
+
 
 Shader::Shader()
 {
@@ -21,11 +24,18 @@ Shader::~Shader()
 
 void Shader::CreateShader(std::string path, GLenum type)
 {
-	ifile.Read(path);
+	InputFile ifile;
+	if (!ifile.Read(path)) return;
 	std::string vertexSource = ifile.GetContents();
+
+	if (_shaderHandle)
+		glDeleteShader(_shaderHandle);
+
 	_shaderHandle = glCreateShader(type);
+
 	const GLchar*vertexSource_c = (const GLchar*)vertexSource.c_str();
 	glShaderSource(_shaderHandle, 1, &vertexSource_c, nullptr);
+
 	glCompileShader(_shaderHandle);
 
 }
