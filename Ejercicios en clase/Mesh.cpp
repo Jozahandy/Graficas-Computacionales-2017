@@ -1,13 +1,5 @@
-/*********************************************************
-Materia:Gráficas computacionales
-Fecha: 16/Octubre/2017
-Autor: Valeria Jozahandy Sánchez Álvarez
-Matricula: A01375042
-*********************************************************/
-
 #include "Mesh.h"
 #include <iostream>
-
 
 
 Mesh::Mesh()
@@ -16,6 +8,10 @@ Mesh::Mesh()
 	_vertexArrayObject = 0;
 	_positionsVertexBufferObject = 0;
 	_colorsVertexBufferObject = 0;
+	_indicesBufferObject = 0;
+	_indicesCount = 0;
+	_normalBufferObject = 0;
+
 
 }
 
@@ -37,7 +33,9 @@ void Mesh::CreateMesh(GLint vertexCount)
 
 void Mesh::Draw(GLenum primitive)
 {
-	if (_indicesCount > 0) {
+
+	if (_indicesCount > 0)
+	{
 		glBindVertexArray(_vertexArrayObject);
 		glDrawElements(primitive, _indicesCount, GL_UNSIGNED_INT, nullptr);
 		glBindVertexArray(0);
@@ -47,6 +45,7 @@ void Mesh::Draw(GLenum primitive)
 		glDrawArrays(primitive, 0, _vertexCount);
 		glBindVertexArray(0);
 	}
+
 }
 
 void Mesh::SetPositionAttribute(std::vector<glm::vec2> positions, GLenum usage, GLuint locationIndex)
@@ -97,6 +96,16 @@ void Mesh::SetIndices(std::vector<unsigned int> indices, GLenum usage)
 
 }
 
+void Mesh::SetNormalAttribute(std::vector<glm::vec3> normal, GLenum usage, GLuint locationIndex)
+{
+	if (normal.size() > 0 && normal.size() == _vertexCount) {
+		SetAttributeData(_normalBufferObject, sizeof(glm::vec3)* normal.size(), normal.data(), usage, locationIndex, 3);
+	}
+
+}
+
+
+
 void Mesh::SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components)
 {
 	if (buffer)
@@ -113,5 +122,4 @@ void Mesh::SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* d
 
 
 	glBindVertexArray(0);
-
 }

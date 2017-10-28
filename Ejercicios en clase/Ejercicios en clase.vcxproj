@@ -146,6 +146,8 @@
     <None Include="Default.vert" />
     <None Include="DiscardCenter.frag" />
     <None Include="DiscardCenter.vert" />
+    <None Include="PhongShading.frag" />
+    <None Include="PhongShading.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
