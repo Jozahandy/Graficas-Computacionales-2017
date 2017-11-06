@@ -17,4 +17,3 @@ public:
 private:
 	GLuint _shaderHandle = 0;
 };
-

@@ -11,6 +11,7 @@ Mesh::Mesh()
 	_indicesBufferObject = 0;
 	_indicesCount = 0;
 	_normalBufferObject = 0;
+	_texCoordsVertexBufferObject = 0;
 
 
 }
@@ -20,8 +21,9 @@ Mesh::~Mesh()
 	glDeleteVertexArrays(1, &_vertexArrayObject);
 	glDeleteBuffers(1, &_positionsVertexBufferObject);
 	glDeleteBuffers(1, &_colorsVertexBufferObject);
-
-	_vertexCount = 0;
+	glDeleteBuffers(1, &_indicesBufferObject);
+	glDeleteBuffers(1, &_normalBufferObject);
+	glDeleteBuffers(1, &_texCoordsVertexBufferObject);
 
 }
 
@@ -104,6 +106,12 @@ void Mesh::SetNormalAttribute(std::vector<glm::vec3> normal, GLenum usage, GLuin
 
 }
 
+void Mesh::SetTexCoordAttribute(std::vector<glm::vec2> texCoords, GLenum usage, GLuint locationIndex)
+{
+	if (texCoords.size() > 0 && texCoords.size() == _vertexCount) {
+		SetAttributeData(_texCoordsVertexBufferObject, sizeof(glm::vec2)* texCoords.size(), texCoords.data(), usage, locationIndex, 2);
+	}
+}
 
 
 void Mesh::SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components)

@@ -14,12 +14,18 @@ Autores: A01375042 Valeria Jozahandy Sánchez Álvarez
 #include "Mesh.h"
 #include "ShaderProgram.h"
 #include "Transform.h"
+#include "Texture2D.h"
+#include <IL/il.h>
 
 Mesh _mesh;
 ShaderProgram _shaderProgram;
+ShaderProgram _shaderProgram2;
 Transform _transform;
 Transform _transform2;
 Camera _camera;
+Texture2D _myTexture;
+Texture2D _myTexture2;
+Texture2D _myTexture3;
 
 
 void Initialize()
@@ -141,34 +147,86 @@ void Initialize()
 	Normal.push_back(glm::vec3(0.0f, -1.0f, 0.0f));
 	Normal.push_back(glm::vec3(0.0f, -1.0f, 0.0f));
 
+	std::vector<glm::vec2>Textura;
+	//Cara Frente 
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
+	//Cara Derecha
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
+	//Cara Izquierda 
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
+	//Cara Atras
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
+	//Cara Arriba 
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
+	//Cara Abajo 
+	Textura.push_back(glm::vec2(0.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 0.0f));
+	Textura.push_back(glm::vec2(1.0f, 1.0f));
+	Textura.push_back(glm::vec2(0.0f, 1.0f));
 
 	_mesh.CreateMesh(24);
 	_mesh.SetIndices(indices, GL_STATIC_DRAW);
 	_mesh.SetPositionAttribute(positions, GL_STATIC_DRAW, 0);
 	_mesh.SetColorAttribute(colors, GL_STATIC_DRAW, 1);
 	_mesh.SetNormalAttribute(Normal, GL_STATIC_DRAW, 2);
+	_mesh.SetTexCoordAttribute(Textura, GL_STATIC_DRAW, 3);
 
-
+	//Shader con 1 textura (PISO)
 	_shaderProgram.CreateProgram();
-	_shaderProgram.Activate();
-	_shaderProgram.AttachShader("PhongShading.vert", GL_VERTEX_SHADER);
-	_shaderProgram.AttachShader("PhongShading.frag", GL_FRAGMENT_SHADER);
+	_shaderProgram.AttachShader("TextureMapping.vert", GL_VERTEX_SHADER);
+	_shaderProgram.AttachShader("TextureMapping.frag", GL_FRAGMENT_SHADER);
 	_shaderProgram.SetAttribute(0, "VertexPosition");
 	_shaderProgram.SetAttribute(1, "VertexColor");
 	_shaderProgram.SetAttribute(2, "VertexNormal");
-
+	_shaderProgram.SetAttribute(3, "VertexTexCoord");
 	_shaderProgram.LinkProgram();
-	_shaderProgram.Deactivate();
 
 	_shaderProgram.Activate();
-	_shaderProgram.SetUniformVec3("LightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-	_shaderProgram.SetUniformVec3("LightPosition", glm::vec3(0.0f, 0.0f, 10.0f));
+	_shaderProgram.SetUniformf("LightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	_shaderProgram.SetUniformf("LightPosition", glm::vec3(0.0f, 0.0f, 10.0f));
+	_shaderProgram.SetUniformi("DiffuseTexture", 0);
 	_shaderProgram.Deactivate();
 
-	_transform2.SetPosition(0.0f, -12.0f, 0.0f);
-	_transform2.SetScale(10.0f, 2.0f, 10.0f);
+	_transform.SetPosition(0.0f, -12.0f, 0.0f);
+	_transform.SetScale(10.0f, 2.0f, 10.0f);
 
-	//_camera.SetOrthographic(1.0f, 1.0f); Esto convierte la cámara en 2D
+	_myTexture3.LoadTexture("Piso.jpg");
+
+	//Shader con 2 texturas (CUBO)
+
+	_shaderProgram2.CreateProgram();
+	_shaderProgram2.AttachShader("MappingMix.vert", GL_VERTEX_SHADER);
+	_shaderProgram2.AttachShader("MappingMix.frag", GL_FRAGMENT_SHADER);
+	_shaderProgram2.SetAttribute(0, "VertexPosition");
+	_shaderProgram2.SetAttribute(1, "VertexColor");
+	_shaderProgram2.SetAttribute(2, "VertexNormal");
+	_shaderProgram2.SetAttribute(3, "VertexTexCoord");
+	_shaderProgram2.LinkProgram();
+
+	_shaderProgram2.Activate();
+	_shaderProgram2.SetUniformf("LightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+	_shaderProgram2.SetUniformf("LightPosition", glm::vec3(0.0f, 0.0f, 10.0f));
+	_shaderProgram2.SetUniformi("DiffuseTexture", 0);
+	_shaderProgram2.SetUniformi("DiffuseTexture2", 1);
+	_shaderProgram2.Deactivate();
+
+	_myTexture2.LoadTexture("Dante.png");
+	_myTexture.LoadTexture("Caja.jpg");
 }
 
 void GameLoop()
@@ -177,26 +235,43 @@ void GameLoop()
 
 	_camera.SetPosition(0.0f, 0.0f, 25.0f);
 
-	_transform.Rotate(0.01f, 0.01f, 0.01f, true);
+	_transform2.Rotate(0.01f, 0.01f, 0.01f, true);
 
-	_shaderProgram.Activate();
-
-	_shaderProgram.SetUniformMat3("normalMatrix", glm::transpose(glm::inverse(glm::mat3(_transform.GetModelMatrix()))));
-	_shaderProgram.SetUniformMatrix("mvpMatrix", _camera.GetViewProjection()* _transform.GetModelMatrix());
+	//CUBO 2 texturas 
+	_shaderProgram2.Activate();
+	_shaderProgram2.SetUniformMatrix("normalMatrix", glm::transpose(glm::inverse(glm::mat3(_transform2.GetModelMatrix()))));
+	_shaderProgram2.SetUniformMatrix("mvpMatrix", _camera.GetViewProjection()* _transform2.GetModelMatrix());
 	glm::vec3 newCamera = _camera.GetPosition();
-	_shaderProgram.SetUniformVec3("cameraPosition", newCamera);
-	_shaderProgram.SetUniformMatrix("ModelMatrix", _transform.GetModelMatrix());
-	_mesh.Draw(GL_TRIANGLES); //Geometría 1
+	_shaderProgram2.SetUniformf("cameraPosition", newCamera);
+	_shaderProgram2.SetUniformMatrix("ModelMatrix", _transform2.GetModelMatrix());
 
-	_shaderProgram.SetUniformMat3("normalMatrix", glm::transpose(glm::inverse(glm::mat3(_transform2.GetModelMatrix()))));
-	_shaderProgram.SetUniformMatrix("mvpMatrix", _camera.GetViewProjection()* _transform2.GetModelMatrix());
-	_shaderProgram.SetUniformVec3("cameraPosition", newCamera);
-	_shaderProgram.SetUniformMatrix("ModelMatrix", _transform2.GetModelMatrix());
-	_mesh.Draw(GL_TRIANGLES); //Geometría 2
+	glActiveTexture(GL_TEXTURE0);
+	_myTexture.Bind();
+	glActiveTexture(GL_TEXTURE1);
+	_myTexture2.Bind();
+	_mesh.Draw(GL_TRIANGLES); //Textura 1
+	glActiveTexture(GL_TEXTURE1);
+	_myTexture2.Unbind();
+	glActiveTexture(GL_TEXTURE0);
+	_myTexture.Unbind();
+
+
+	//PISO 1 textura 
+	_shaderProgram.SetUniformMatrix("normalMatrix", glm::transpose(glm::inverse(glm::mat3(_transform.GetModelMatrix()))));
+	_shaderProgram.SetUniformMatrix("mvpMatrix", _camera.GetViewProjection()* _transform.GetModelMatrix());
+	_shaderProgram.SetUniformf("cameraPosition", newCamera);
+	_shaderProgram.SetUniformMatrix("ModelMatrix", _transform.GetModelMatrix());
+
+	glActiveTexture(GL_TEXTURE0);
+	_myTexture3.Bind();
+	_mesh.Draw(GL_TRIANGLES);
+	glActiveTexture(GL_TEXTURE0);
+	_myTexture3.Unbind();
+
 
 	_shaderProgram.Deactivate();
 
-	glutSwapBuffers(); //Cuando terminamos de renderear cambiamos los buffers 
+	glutSwapBuffers();
 }
 
 
@@ -213,6 +288,7 @@ void ReshapeWindow(int width, int height)
 
 int main(int argc, char* argv[])
 {
+
 	glutInit(&argc, argv);
 	glutInitContextVersion(4, 4);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
@@ -231,6 +307,11 @@ int main(int argc, char* argv[])
 	glCullFace(GL_BACK);
 
 	std::cout << glGetString(GL_VERSION) << std::endl;
+
+	ilInit();
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+
 	Initialize();
 	glutMainLoop();
 

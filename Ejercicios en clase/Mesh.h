@@ -19,9 +19,10 @@ public:
 	void SetColorAttribute(std::vector<glm::vec4> colors, GLenum usage, GLuint locationIndex);
 	void SetIndices(std::vector<unsigned int> indices, GLenum usage); //una lista que guarda numeros enteros sin signo 
 	void SetNormalAttribute(std::vector<glm::vec3> normal, GLenum usage, GLuint locationIndex);
+	void SetTexCoordAttribute(std::vector<glm::vec2> texCoords, GLenum usage, GLuint locationIndex);
 
 private:
-	void SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components);
+	void SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components); //atributo de coordenadas de textura 
 
 	GLuint _vertexArrayObject = 0;
 	GLuint _positionsVertexBufferObject = 0;
@@ -30,6 +31,7 @@ private:
 	GLuint _normalBufferObject = 0;
 	GLint _vertexCount = 0;
 	GLint _indicesCount = 0;
+	GLuint _texCoordsVertexBufferObject = 0;
 
 
 };
