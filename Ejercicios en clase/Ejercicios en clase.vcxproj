@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="Dephtbuffer.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="InputFile.h" />
     <ClInclude Include="Mesh.h" />
@@ -133,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Dephtbuffer.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="InputFile.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -146,12 +148,18 @@
   <ItemGroup>
     <None Include="Default.frag" />
     <None Include="Default.vert" />
+    <None Include="Depth.frag" />
+    <None Include="Depth.vert" />
     <None Include="DiscardCenter.frag" />
     <None Include="DiscardCenter.vert" />
     <None Include="MappingMix.frag" />
     <None Include="MappingMix.vert" />
     <None Include="PhongShading.frag" />
     <None Include="PhongShading.vert" />
+    <None Include="ShadowMapping.frag" />
+    <None Include="ShadowMapping.vert" />
+    <None Include="ShadowMappingMix.frag" />
+    <None Include="ShadowMappingMix.vert" />
     <None Include="TextureMapping.frag" />
     <None Include="TextureMapping.vert" />
   </ItemGroup>

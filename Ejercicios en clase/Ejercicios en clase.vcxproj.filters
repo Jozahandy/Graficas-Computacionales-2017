@@ -48,6 +48,9 @@
     <ClInclude Include="Texture2D.h">
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
+    <ClInclude Include="Dephtbuffer.h">
+      <Filter>Archivos de código fuente</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp">
@@ -83,6 +86,9 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
+    <ClCompile Include="Dephtbuffer.cpp">
+      <Filter>Archivos de recursos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Default.vert">
@@ -113,6 +119,24 @@
       <Filter>Archivos de recursos\Shaders</Filter>
     </None>
     <None Include="MappingMix.frag">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="ShadowMapping.vert">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="Depth.frag">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="Depth.vert">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="ShadowMapping.frag">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="ShadowMappingMix.frag">
+      <Filter>Archivos de recursos\Shaders</Filter>
+    </None>
+    <None Include="ShadowMappingMix.vert">
       <Filter>Archivos de recursos\Shaders</Filter>
     </None>
   </ItemGroup>

@@ -8,7 +8,10 @@
 
 class Shader {
 
+
+
 public:
+
 	Shader();
 	~Shader();
 	void CreateShader(std::string path, GLenum type);
